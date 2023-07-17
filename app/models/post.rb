@@ -1,4 +1,7 @@
 class Post < ApplicationRecord
+
+    paginates_per 10
+
     validates :pt_title, presence: true, uniqueness: true
     validates :pt_excerpt, presence: true
     validates :pt_body, presence: true
@@ -28,6 +31,5 @@ class Post < ApplicationRecord
     def add_tag(tag)
         tags << tag
     end
-
 
 end

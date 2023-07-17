@@ -1,11 +1,21 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show update destroy ]
+  include JsonHelper
 
   # GET /categories
   def index
     @categories = Category.all
 
     render json: @categories
+  end
+
+  # GET posts /categories/1/posts
+  def posts
+    @category = Category.find(params[:category_id])
+    @posts = @category.posts.order(created_at: :desc)
+      .page(params[:page]).per(params[:per_page] || Category.default_per_page)
+
+    render json: posts_json(@posts)
   end
 
   # GET /categories/1

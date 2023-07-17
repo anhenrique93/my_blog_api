@@ -1,9 +1,13 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show update destroy ]
+  include JsonHelper
+
+  skip_before_action :authenticate_request, only: [:index, :show, :last_posts]
 
   # GET /posts
   def index
     @posts = Post.includes(:categories).order(created_at: :desc)
+      .page(params[:page]).per(params[:per_page] || Post.default_per_page)
     render json: posts_json(@posts)
   end
 
@@ -12,8 +16,17 @@ class PostsController < ApplicationController
     render json: posts_json(@post)
   end
 
+  # GET /last/5
+  def last_posts
+    @posts = Post.order(created_at: :desc).limit(params[:posts_number])
+    render json: posts_json(@posts)
+  end
+
   # POST /posts
   def create
+
+    Rails.logger.info("Params received: #{params.inspect}")
+
     @post = Post.new(post_params)
 
     if @post.save
@@ -95,13 +108,5 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:pt_title, :en_title, :pt_excerpt, :en_excerpt, 
         :pt_body, :en_body, :author, :date, category_ids: [], tag_ids: [])
-    end
-
-    # json with posts params to return
-    def posts_json(posts)
-      return posts.to_json(include: { 
-          categories: { only: [:pt_name, :en_name] },
-          tags: { only: [:name] }
-        })
     end
 end

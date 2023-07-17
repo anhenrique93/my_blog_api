@@ -1,5 +1,17 @@
+if Profile.count <= 0
+    # Criar um perfil
+    profile = Profile.create(name: "Henrique", last_name: "Henrique Araújo Neto",
+    email: "anhenrique93@gmail.com", image: "http://image.url", password_digest: "password", pt_description: "Bem vindo!")
+
+    if profile.save
+        # Criar networks associada ao perfil
+        3.times do |i|
+            profile.networks.create(name: "network - #{i}", url: "http://netowek-#{i}.com")
+        end
+    end
+end
+
 if Post.count <= 0
-    
     PostCategory.delete_all
     PostTag.delete_all
 

@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_13_195128) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_14_162045) do
   create_table "categories", force: :cascade do |t|
     t.string "pt_name", null: false
     t.string "en_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "networks", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.integer "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_networks_on_profile_id"
   end
 
   create_table "post_categories", force: :cascade do |t|
@@ -49,12 +58,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_13_195128) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "name"
+    t.string "last_name"
+    t.string "email"
+    t.string "image"
+    t.string "pt_description"
+    t.string "en_description"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "networks", "profiles"
   add_foreign_key "post_categories", "categories"
   add_foreign_key "post_categories", "posts"
   add_foreign_key "post_tags", "posts"
