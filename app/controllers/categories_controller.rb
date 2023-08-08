@@ -2,6 +2,8 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show update destroy ]
   include JsonHelper
 
+  skip_before_action :authenticate_request, only: [:index, :show]
+
   # GET /categories
   def index
     @categories = Category.all
