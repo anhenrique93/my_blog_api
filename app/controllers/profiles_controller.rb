@@ -3,6 +3,8 @@ class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show update destroy ]
   include JsonHelper
 
+  skip_before_action :authenticate_request, only: [:index, :show]
+
   # GET /profiles
   def index
     @profiles = Profile.includes(:networks).all
