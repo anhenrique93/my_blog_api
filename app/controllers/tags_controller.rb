@@ -2,7 +2,7 @@ class TagsController < ApplicationController
     before_action :set_tag, only: %i[ show update destroy ]
     include JsonHelper
   
-    skip_before_action :authenticate_request, only: [:index, :show]
+    skip_before_action :authenticate_request, only: [:index, :show, :posts]
 
     # GET /tags
     def index
