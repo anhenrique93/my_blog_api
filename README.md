@@ -1,24 +1,24 @@
-# README
+# Blog API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is a Blog API developed with Ruby on Rails.
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+To install this project, follow the steps below:
 
-* System dependencies
+1. Clone the repository:
+https://github.com/anhenrique93/my_blog_api.git
 
-* Configuration
+2. Navigate to the project folder:
+cd my_blog-api
 
-* Database creation
+3. Install the dependencies:
+bundle install
 
-* Database initialization
+## Usage
 
-* How to run the test suite
+To start the server, run the following command:
+rails server
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
-
-* ...
+Now, the blog API should be running at `http://localhost:3000`.
